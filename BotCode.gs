@@ -180,6 +180,9 @@ function preview() {
 function convertTimingtoMinutes(originalTiming) {
   var timing = 0;
   switch (originalTiming) {
+    case "24 hours":
+      timing = 24*60;
+      break;
     case "12 hours":
       timing = 12*60;
       break;
@@ -228,7 +231,9 @@ function setTiming(nextPostTime) {
   if (properties.isAutoTiming == "true") {            //We are supposed to self adjust the timing schedule.
     if (nextPostTime) {                               //We know when the next run needs to be.
       var minutesTillNextPostTime = (nextPostTime - (new Date())) / 60000;
-      if (minutesTillNextPostTime > (12*60)) {
+      if (minutesTillNextPostTime > (24*60)) {
+        timing = 24*60;
+      } else if (minutesTillNextPostTime > (12*60)) {
         timing = 12*60;
       } else if (minutesTillNextPostTime > (8*60)) {
         timing = 8*60;
@@ -526,7 +531,7 @@ function getMediaIds(tweet) {
 
   //var tweet = 'Testing http://i.imgur.com/AsghXmB.png http://i.imgur.com/Di9t0XB.jpg';
 
-  var urls = tweet.match(/https?:[^ ]*?(\.png|\.jpg|\.gif)/gi);
+  var urls = tweet.match(/https?:[^ ]*?(\.png|\.jpg|\.jpeg|\.gif)/gi);
 
   if (urls.length > 0) {
     var media = [];
@@ -573,10 +578,10 @@ function doTweet(tweet, tweetID) {
   // return an array of media_ids
 
   if (properties.img == 'yes' &&
-    tweet.match(/\.jpg|\.gif|\.png/i)
+    tweet.match(/\.jpg|\.jpeg|\.gif|\.png/i)
   ) {
     var media = getMediaIds(tweet);
-    tweet = tweet.replace(/https?:[^ ]*?(\.png|\.jpg|\.gif)/gi, '');
+    tweet = tweet.replace(/https?:[^ ]*?(\.png|\.jpg|\.jpeg|\.gif)/gi, '');
 
   }
 
