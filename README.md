@@ -1,5 +1,9 @@
 # SSBot
 
+My Edits:
+* added *.jpeg to image URL upload
+* added 24h timing
+
 A tool for making a twitter bot using Google Spreadsheets. Because the software runs in Google Spreadsheets, and it requires the interaction of a specifically-constructed sheet with the underlying code specific to that sheet, this GitHub repo exists 
 
  * to point to the current, legacy, and in-development versions of the spreadsheet
